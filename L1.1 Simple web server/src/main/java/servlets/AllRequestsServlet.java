@@ -1,6 +1,6 @@
 package servlets;
 
-import templater.PageGenerator;
+import templates.PageGenerator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +37,7 @@ public class AllRequestsServlet extends HttpServlet {
         Map<String, Object> pageVariables = createPageVariablesMap(request);
 
         String message = request.getParameter("message");
+        String key = request.getParameter("key");
 
         response.setContentType("text/html;charset=utf-8");
 
@@ -46,6 +47,7 @@ public class AllRequestsServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_OK);
         }
         pageVariables.put("message", message == null ? "" : message);
+        pageVariables.put("key", key == null ? "" : key);
 
         response.getWriter().println(PageGenerator.instance().getPage("page.html", pageVariables));
     }
