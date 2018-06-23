@@ -26,7 +26,10 @@ public class UsersServlet extends HttpServlet {
     //get public user profile
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response) throws ServletException, IOException {
-        //todo: module 2 home work
+        String json = "success";
+        response.setContentType("text/html;charset=utf-8");
+        response.getWriter().println(json);
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 
     //sign up
