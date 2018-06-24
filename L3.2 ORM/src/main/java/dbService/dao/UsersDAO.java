@@ -24,13 +24,16 @@ public class UsersDAO {
     public UsersDataSet get(long id) throws HibernateException {
         return (UsersDataSet) session.get(UsersDataSet.class, id);
     }
-
+    public UsersDataSet getUserByLogin(String login) throws HibernateException {
+        Criteria criteria = session.createCriteria(UsersDataSet.class);
+        return ((UsersDataSet) criteria.add(Restrictions.eq("name", login)).uniqueResult());
+    }
     public long getUserId(String name) throws HibernateException {
         Criteria criteria = session.createCriteria(UsersDataSet.class);
         return ((UsersDataSet) criteria.add(Restrictions.eq("name", name)).uniqueResult()).getId();
     }
 
-    public long insertUser(String name) throws HibernateException {
-        return (Long) session.save(new UsersDataSet(name));
+    public long insertUser(UsersDataSet user) throws HibernateException {
+        return (Long) session.save(user);
     }
 }

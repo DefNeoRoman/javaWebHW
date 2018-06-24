@@ -19,9 +19,10 @@ public class UsersDataSet implements Serializable { // Serializable Important to
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Column(name = "name", unique = true, updatable = false)
+    @Column(name = "name", unique = true, updatable = true)
     private String name;
+    @Column(name = "password", unique = true, updatable = true)
+    private String password;
 
     //Important to Hibernate!
     @SuppressWarnings("UnusedDeclaration")
@@ -39,6 +40,11 @@ public class UsersDataSet implements Serializable { // Serializable Important to
         this.setName(name);
     }
 
+    public UsersDataSet(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
+
     @SuppressWarnings("UnusedDeclaration")
     public String getName() {
         return name;
@@ -54,6 +60,14 @@ public class UsersDataSet implements Serializable { // Serializable Important to
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
