@@ -72,9 +72,10 @@ public class UsersDataSet implements Serializable { // Serializable Important to
 
     @Override
     public String toString() {
-        return "UserDataSet{" +
+        return "UsersDataSet{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

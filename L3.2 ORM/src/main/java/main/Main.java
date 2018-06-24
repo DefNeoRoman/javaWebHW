@@ -35,7 +35,7 @@ public class Main {
 
             context.addServlet(new ServletHolder(new SignInServlet(dbService)), "/signin");
             context.addServlet(new ServletHolder(new SignUpServlet(dbService)), "/signup");
-            context.addServlet(new ServletHolder(new TestServlet()), "/test");
+            context.addServlet(new ServletHolder(new TestServlet(dbService)), "/test");
 
             ResourceHandler resource_handler = new ResourceHandler();
             resource_handler.setResourceBase("public_html");

@@ -1,6 +1,8 @@
 package dbService.servlets;
 
+import dbService.DBException;
 import dbService.DBService;
+import dbService.dataSets.UsersDataSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +12,6 @@ import java.io.IOException;
 
 public class SignUpServlet extends HttpServlet {
    private DBService dbService;
-   private String path;
 
     public SignUpServlet(DBService dbService) {
         this.dbService = dbService;
@@ -22,7 +23,30 @@ public class SignUpServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String login = request.getParameter("login");
+        String pass = request.getParameter("password");
+
+
+        if (login == null || pass == null) {
+            response.setContentType("text/html;charset=utf-8");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        UsersDataSet profile;
+        try {
+            profile = dbService.getUserByLogin(login);
+            if (profile == null) {
+                profile = new UsersDataSet(login,pass);
+                dbService.addUser(profile);
+                return;
+            }
+            response.setContentType("text/html;charset=utf-8");
+            response.getWriter().println("Authorized: "+login);
+            response.setStatus(HttpServletResponse.SC_OK);
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
     }
 }
