@@ -27,10 +27,13 @@ public class UsersDAO {
     public UsersDataSet getUserByLogin(String login) throws HibernateException {
         Criteria criteria = session.createCriteria(UsersDataSet.class);
         return ((UsersDataSet) criteria.add(Restrictions.eq("name", login)).uniqueResult());
+
     }
+
     public long getUserId(String name) throws HibernateException {
         Criteria criteria = session.createCriteria(UsersDataSet.class);
         return ((UsersDataSet) criteria.add(Restrictions.eq("name", name)).uniqueResult()).getId();
+
     }
 
     public long insertUser(UsersDataSet user) throws HibernateException {
