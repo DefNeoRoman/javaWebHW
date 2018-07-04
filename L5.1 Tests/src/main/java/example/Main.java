@@ -30,21 +30,21 @@ public class Main {
     static final Logger logger = LogManager.getLogger(Main.class.getName());
 
     public static void main(String[] args) throws Exception {
-        if (args.length != 1) {
-            logger.error("Use port as the first argument");
-            System.exit(1);
-        }
+//        if (args.length != 1) {
+//            logger.error("Use port as the first argument");
+//            System.exit(1);
+//        }
 
-        String portString = args[0];
+        String portString = "8080";
         int port = Integer.valueOf(portString);
 
         logger.info("Starting at http://127.0.0.1:" + portString);
 
-        AccountServerI accountServer = new AccountServer(1);
+        AccountServerI accountServer = new AccountServer(10);
 
         AccountServerControllerMBean serverStatistics = new AccountServerController(accountServer);
         MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-        ObjectName name = new ObjectName("ServerManager:type=AccountServerController");
+        ObjectName name = new ObjectName("Admin:type=AccountServerController.usersLimit");
         mbs.registerMBean(serverStatistics, name);
 
         Server server = new Server(port);
@@ -61,7 +61,7 @@ public class Main {
 
         server.start();
         logger.info("Server started");
-
+        System.out.println("Server started");
         server.join();
     }
 }
