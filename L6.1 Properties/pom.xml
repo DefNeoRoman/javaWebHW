@@ -9,9 +9,23 @@
     <version>1.0</version>
 
 	<properties>
+        <org.eclipse.jetty.version>9.3.0.M1</org.eclipse.jetty.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>${org.eclipse.jetty.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>${org.eclipse.jetty.version}</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
