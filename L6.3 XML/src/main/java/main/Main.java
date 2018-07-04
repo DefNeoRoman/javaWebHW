@@ -4,6 +4,9 @@ package main;
 import resources.DBParametersResource;
 import sax.ReadXMLFileSAX;
 
+import java.io.File;
+import java.net.URL;
+
 /**
  * @author v.chibrikov
  *         <p>
@@ -13,7 +16,11 @@ import sax.ReadXMLFileSAX;
  */
 public class Main {
     public static void main(String[] args) throws Exception {
-        DBParametersResource resource = (DBParametersResource) ReadXMLFileSAX.readXML("./data/MySqlResource.xdb");
+        String property = System.getProperty("user.dir");
+
+        File file = new File("/");
+        System.out.println(file.getAbsolutePath().toString());
+        DBParametersResource resource = (DBParametersResource) ReadXMLFileSAX.readXML(property+"/L6.3 XML/"+"data/MySqlResource.xdb");
         System.out.println(resource);
     }
 }
