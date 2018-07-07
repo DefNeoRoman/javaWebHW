@@ -1,24 +1,27 @@
 package servlets;
 
 import resources.TestResource;
+import sax.ReadXMLSax;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Logger;
 
 public class ResourcePageServlet extends HttpServlet {
     static final Logger logger = Logger.getLogger(ResourcePageServlet.class.getName());
     public static final String PAGE_URL = "/resources";
+    private ReadXMLSax readXMLSax;
     private TestResource testResource;
 
     public ResourcePageServlet(TestResource testResource) {
         this.testResource = testResource;
+        readXMLSax = new ReadXMLSax();
     }
 
     @Override
@@ -43,17 +46,9 @@ public class ResourcePageServlet extends HttpServlet {
     }
 
     private void readFile(String filePath) {
-        Properties properties = new Properties();
-        System.out.println(new File("").getAbsolutePath());
-        System.out.println(new File(getClass().getClassLoader().getResource("").getFile()).getAbsolutePath());
+        TestResource testResource = (TestResource) readXMLSax.readXML(filePath);
 
-    try (InputStream input = getClass().getClassLoader().getResourceAsStream(filePath)) {
-            properties.load(input);
-            System.out.println(properties.getProperty("database"));
-            System.out.println(properties.getProperty("dbuser"));
-            System.out.println(properties.getProperty("dbpassword"));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        this.testResource = testResource;
+
     }
 }
